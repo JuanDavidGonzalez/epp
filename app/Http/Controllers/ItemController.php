@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Item;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
@@ -22,7 +23,9 @@ class ItemController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            //'rule' => 'required',
+            'specification' => 'required',
+            'code' => 'required|unique:items',
             'image' => 'required|image'
         ]);
 
@@ -42,7 +45,12 @@ class ItemController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'code' => 'required',
+            //'rule' => 'required',
+            'specification' => 'required',
+            'code' => [
+                'required',
+                Rule::unique('items')->ignore($item->id)
+            ],
             'image' => 'image'
         ]);
 

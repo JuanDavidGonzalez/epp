@@ -20,25 +20,6 @@ class CreateRolesTable extends Migration
             $table->timestamps();
         });
 
-        // Create table for associating roles to users (Many-to-Many)
-        //Schema::create('role_user', function (Blueprint $table) {
-        //    $table->bigInteger('user_id')->unsigned();
-        //    $table->integer('role_id')->unsigned();
-        //    $table->primary(['user_id', 'role_id']);
-        //
-        //    $table->foreign('user_id')
-        //        ->references('id')
-        //        ->on('users')
-        //        ->onUpdate('restrict')
-        //        ->onDelete('restrict');
-        //
-        //    $table->foreign('role_id')
-        //        ->references('id')
-        //        ->on('roles')
-        //        ->onUpdate('restrict')
-        //        ->onDelete('restrict');
-        //
-        //});
     }
 
     /**
@@ -49,7 +30,5 @@ class CreateRolesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('roles');
-        //Schema::dropIfExists('role_user');
-
     }
 }

@@ -22,7 +22,7 @@
                                     <th></th>
                                     <th class="text-center">Código</th>
                                     <th class="text-center">Nombre</th>
-                                    <th class="text-center">Fecha Creación</th>
+                                    <th class="text-center">Norma</th>
                                     <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
@@ -33,8 +33,8 @@
                                         <img src="{{asset('storage/'.$item->img)}}" alt="No Image" class="img-circle" style="height: 50px; width: 50px">
                                     </td>
                                     <td class="text-center" style="padding-top: 25px">{{$item->code}}</td>
-                                    <td class="text-center" style="padding-top: 25px">{{$item->name}}</td>
-                                    <td class="text-center" style="padding-top: 25px">{{$item->created_at}}</td>
+                                    <td class="text-left" style="padding-top: 25px">{{$item->name}}</td>
+                                    <td class="text-center" style="padding-top: 25px">{{$item->rule}}</td>
                                     <td class="text-center" style="padding-top: 25px">
                                         <a href="{{route('item.edit', $item->id)}}" class="btn btn-xs btn-primary" title="Editar EPP">
                                             <span class="glyphicon glyphicon-edit"></span>

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'position',
+        'position_id',
         'role_id',
     ];
 
@@ -43,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
     public function hasRole($name)
     {
         if ($this->role->name == $name) {
@@ -50,4 +54,10 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function getNamePAttribute()
+    {
+        return $this->name." - ".$this->position->name;
+    }
+
 }

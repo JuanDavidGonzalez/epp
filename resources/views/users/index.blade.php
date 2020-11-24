@@ -32,7 +32,7 @@
                                 <tr class="odd gradeX" data-name="{{$user->name}}" data-id="{{$user->id}}">
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    <td>{{$user->position}}</td>
+                                    <td>{{optional($user->position)->name}}</td>
                                     <td>{{$user->role->display_name}}</td>
                                     <td>{{$user->created_at}}</td>
                                     <td class="text-center">

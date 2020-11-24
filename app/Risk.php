@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Risk extends Model
 {
-    protected $table = "items";
-
-    protected  $fillable = ['code', 'name', 'img', 'rule', 'specification'];
+    protected $table = 'risks';
 
     public function activities()
     {

@@ -21,6 +21,7 @@
                                 <tr>
                                     <th class="text-center">Código</th>
                                     <th class="text-center">Nombre</th>
+                                    <th class="text-center">Proceso</th>
                                     <th class="text-center">Fecha Creación</th>
                                     <th class="text-center">No. EPPs</th>
                                     <th class="text-center">Acciones</th>
@@ -30,7 +31,8 @@
                             @foreach($activities as $activity)
                                 <tr>
                                     <td class="text-center">{{$activity->code}}</td>
-                                    <td class="text-center">{{$activity->name}}</td>
+                                    <td class="text-left">{{$activity->name}}</td>
+                                    <td class="text-left">{{$activity->process->name}}</td>
                                     <td class="text-center">{{$activity->created_at}}</td>
                                     <td class="text-center">{{$activity->items->count()}}</td>
                                     <td class="text-center">

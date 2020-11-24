@@ -41,15 +41,15 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group {{ $errors->has('position') ? ' has-error' : '' }}">
+                                <div class="form-group {{ $errors->has('position_id') ? ' has-error' : '' }}">
                                     <label>Cargo</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
-                                        {!! Form::text('position', null,['class'=>'form-control', 'placeholder'=>'Cargo']) !!}
+                                        {!! Form::select('position_id', $positions,null,['class'=>'form-control']) !!}
                                     </div>
-                                    @if ($errors->has('position'))
+                                    @if ($errors->has('position_id'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('position') }}</strong>
+                                            <strong>{{ $errors->first('position_id') }}</strong>
                                         </span>
                                     @endif
                                 </div>

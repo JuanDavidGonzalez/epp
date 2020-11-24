@@ -41,6 +41,7 @@
                                         </span>
                                     @endif
                                 </div>
+
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label>Nombre <span class="">*</span></label>
                                     <div class="input-group">
@@ -53,8 +54,31 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group {{ $errors->has('process_id') ? ' has-error' : '' }}">
+                                    <label>Proceso</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
+                                        {!! Form::select('process_id', $processes,null,['class'=>'form-control']) !!}
+                                    </div>
+                                    @if ($errors->has('process_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('process_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                             </div>
                             <div class="col-lg-6">
+                                <div class="form-group{{ $errors->has('risks*') ? ' has-error' : '' }}">
+                                    <label>Riesgos *</label>
+                                    {!! Form::select('risks[]',$risks, null, ['multiple'=>'multiple','class'=>'form-control']) !!}
+                                    @if ($errors->has('risks*'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('risks*') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
                                 <div class="form-group{{ $errors->has('items*') ? ' has-error' : '' }}">
                                     <label>EPPs *</label>
                                     {!! Form::select('items[]',$items, null, ['multiple'=>'multiple','class'=>'form-control']) !!}
@@ -64,7 +88,9 @@
                                         </span>
                                     @endif
                                 </div>
+
                             </div>
+
                         </div>
 
                         <div class="row" align="center">

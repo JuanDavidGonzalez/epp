@@ -54,8 +54,32 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group {{ $errors->has('rule') ? ' has-error' : '' }}">
+                                    <label>Norma(s) <span class="">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-cube"></i></span>
+                                        {!! Form::text('rule', null,['class'=>'form-control', 'placeholder'=>'Norma de referencia']) !!}
+                                    </div>
+                                    @if ($errors->has('rule'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('rule') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                             <div class="col-lg-6">
+                                <div class="form-group {{ $errors->has('specification') ? ' has-error' : '' }}">
+                                    <label>Especificaciones <span class="">*</span></label>
+{{--                                    <div class="input-group">--}}
+{{--                                        <span class="input-group-addon"><i class="fa fa-cube"></i></span>--}}
+                                        {!! Form::textArea('specification', null,['class'=>'form-control', 'placeholder'=>'Especificaciones', 'rows'=>5]) !!}
+{{--                                    </div>--}}
+                                    @if ($errors->has('specification'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('specification') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="form-group {{ $errors->has('image') ? ' has-error' : '' }}">
                                     <label>Imagen </label>
                                     <div class="input-group">
@@ -63,7 +87,7 @@
                                     </div>
                                     @if ($errors->has('image'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('img') }}</strong>
+                                            <strong>{{ $errors->first('image') }}</strong>
                                         </span>
                                     @endif
                                 </div>

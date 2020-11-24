@@ -8,7 +8,7 @@ class Activity extends Model
 {
     protected  $table = "activities";
 
-    protected $fillable = ['code', 'name'];
+    protected $fillable = ['code', 'name', 'process_id'];
 
     public function items()
     {
@@ -18,5 +18,15 @@ class Activity extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function process()
+    {
+        return $this->belongsTo(Process::class);
+    }
+
+    public function risks()
+    {
+        return $this->belongsToMany(Risk::class);
     }
 }

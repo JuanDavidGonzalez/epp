@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateTablePositionProcess extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('position_process', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->string('code');
-            $table->string('name');
-            $table->string('img')->nullable();
+            $table->bigInteger('position_id');
+            $table->bigInteger('process_id');
         });
     }
 
@@ -29,6 +27,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('position_process');
     }
 }

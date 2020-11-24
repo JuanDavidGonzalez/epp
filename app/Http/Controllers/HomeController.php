@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\Exports\RequestsExport;
 use App\User;
 use Illuminate\Http\Request;
 use App\Request as Req;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -26,7 +28,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $requests = Req::all();
+        if(auth()->user()->hasRole('coordinator'))
+            $requests = Req::all();
+        else
+            $requests = Req::where('user_id', auth()->user()->id)->get();
+
         return view('home', compact('requests'));
     }
 
@@ -34,15 +40,21 @@ class HomeController extends Controller
     {
         $req = null;
         $activities = Activity::pluck('name', 'id')->prepend('Seleccionar', -1);
-        $users = User::pluck('name', 'id')->prepend('Seleccionar', -1);
+
+        if(auth()->user()->hasRole('coordinator'))
+            $users = User::all()->pluck('nameP', 'id')->prepend('Seleccionar', -1);
+        else
+            $users = User::where('id', auth()->user()->id)->get()->pluck('nameP', 'id');
+
         return view('requests.create', compact( 'req', 'activities', 'users'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'activity_id' => 'required',
-            'user_id' => 'required',
+            'activity_id' => 'required|not_in:-1',
+            'user_id' => 'required|not_in:-1',
+            'process_id' => 'required|not_in:-1',
             'items' => 'required|array|min:1',
         ]);
 
@@ -52,19 +64,37 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', 'Solicitud creada correctamente!!');
     }
 
-    public function edit(Req $req)
+    public function edit($id)
     {
-        $items = Item::pluck('name', 'id');
-        return view('requests.create', compact('req', 'items'));
+        $activities = Activity::pluck('name', 'id')->prepend('Seleccionar', -1);
+        if(auth()->user()->hasRole('coordinator'))
+            $users = User::all()->pluck('nameP', 'id')->prepend('Seleccionar', -1);
+        else
+            $users = User::where('id', auth()->user()->id)->get()->pluck('nameP', 'id');
+        $req = Req::findOrFail($id);
+        return view('requests.create', compact( 'req', 'activities', 'users'));
     }
 
-    public function update(Request $request, Activity $req)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'code' => 'required',
+          'activity_id' => 'required',
+          'user_id' => 'required',
+          'items' => 'required|array|min:1',
         ]);
 
+        $req = Req::findOrFail($id);
+        $req->update($request->all());
+        $req->items()->sync($request->items);
         return redirect()->route('home')->with('success', 'Solicitud editado correctamente');
+    }
+
+    public function export()
+    {
+        //foreach (Req::all() as $item) {
+        //    echo $item->items->count();
+        //}
+        //dd('sdf');
+        return Excel::download(new RequestsExport, 'Solicitudes.xlsx');
     }
 }
