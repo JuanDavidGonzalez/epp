@@ -25,3 +25,5 @@ Crear BD y agregar credenciales en el archivo .env
 Ejecutar Migraciones y sedders (Datos de prueba)
 
 - `php artisan migrate --seed`
+
+![ExampleImage](img_app.png)
